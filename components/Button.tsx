@@ -5,8 +5,8 @@ import React from 'react';
 interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
-  // type допоможе формі не перезавантажувати сторінку помилково
   type?: 'button' | 'submit'; 
+  disabled?: boolean;
   className?: string;
 }
 
@@ -15,12 +15,13 @@ export const Button = ({
   onClick,
   type = 'button',
   className = '',
+  disabled = false,
 }: ButtonProps) => {
   return (
     <button
       type={type}
       onClick={onClick}
-      // Використовуємо твій колір grey-green і додаємо hover ефект
+      disabled={disabled}
       className={`
         bg-grey-green 
         hover:bg-green-hover 
@@ -32,6 +33,9 @@ export const Button = ({
         transition-all 
         duration-300
         active:scale-95 
+        disabled:bg-gray-300 
+        disabled:cursor-not-allowed 
+        disabled:active:scale-100
         ${className}
       `}
     >

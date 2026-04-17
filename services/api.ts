@@ -1,22 +1,32 @@
-// services/api.ts
 import axios from 'axios';
+import { CamperListResponse, CamperListItem } from '@/types/camper';
 
 const api = axios.create({
-  baseURL: 'https://66b1f8e71ca8ad33d4f5f63e.mockapi.io',
+  baseURL: 'https://campers-api.goit.study/campers',
 });
 
-export const fetchCampers = async (page = 1, limit = 4, filters = {}) => {
-  const response = await api.get('/campers', {
+export const fetchCampers = async (page = 1, perPage = 4, filters = {}): Promise<CamperListResponse> => {
+  const response = await api.get('', {
     params: {
       page,
-      limit,
-      ...filters, // додаємо фільтри (location, form, etc.)
+      perPage,
+      ...filters,
     },
   });
+  return response.data; 
+};
+
+export const fetchCamperById = async (camperId: string): Promise<CamperListItem> => {
+  const response = await api.get(`/${camperId}`);
   return response.data;
 };
 
-export const fetchCamperById = async (id: string) => {
-  const response = await api.get(`/campers/${id}`);
+export const fetchFilters = async () => {
+  const response = await api.get('/filters');
+  return response.data;
+};
+
+export const sendBooking = async (data: { name: string; email: string; camperId: string }) => {
+  const response = await api.post(`/${data.camperId}/booking`, data);
   return response.data;
 };
