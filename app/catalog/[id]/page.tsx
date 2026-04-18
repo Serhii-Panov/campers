@@ -1,58 +1,75 @@
-'use client';
+"use client";
 
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'next/navigation';
-import { fetchCamperById } from '@/services/api';
-import { CamperGallery } from '@/components/CamperDetails/Gallery';
-import { BookingForm } from '@/components/CamperDetails/BookingForm';
-import { ReviewsList } from '@/components/CamperDetails/Reviews';
-import { VehicleSpecs } from '@/components/CamperDetails/VehicleSpecs';
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
+import { fetchCamperById, fetchCamperReviews } from "@/services/api";
+import { CamperGallery } from "@/components/CamperDetails/Gallery";
+import { BookingForm } from "@/components/CamperDetails/BookingForm";
+import { ReviewsList } from "@/components/CamperDetails/ReviewsList";
+import { CamperMainInfo } from "@/components/CamperDetails/CamperMainInfo";
+import { VehicleDetails } from "@/components/CamperDetails/VehicleDetails";
+import { CamperReviews } from "@/types/camper";
 
 export default function CamperDetailsPage() {
   const { id } = useParams();
-  
-  const { data: camper, isLoading, error } = useQuery({
-    queryKey: ['camper', id],
+
+  // 1. Запит на деталі кемпера
+  const {
+    data: camper,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["camper", id],
     queryFn: () => fetchCamperById(id as string),
   });
 
-  if (isLoading) return <div className="p-20 text-center">Loading details...</div>;
-  if (error || !camper) return <div className="p-20 text-center">Camper not found</div>;
+  // 2. Запит на відгуки (Тепер він викликається ЗАВЖДИ)
+  const { data: reviews, isLoading: isReviewsLoading } = useQuery<
+    CamperReviews[]
+  >({
+    queryKey: ["camperReviews", id],
+    queryFn: () => fetchCamperReviews(id as string),
+    enabled: !!id, // Запит піде тільки якщо є id
+  });
+
+  // 3. Тільки після всіх хуків робимо перевірки на завантаження
+  if (isLoading)
+    return <div className="p-20 text-center">Loading details...</div>;
+  if (error || !camper)
+    return <div className="p-20 text-center">Camper not found</div>;
 
   return (
-    <main className="container mx-auto px-16 py-10">
-      {/* Заголовок */}
-      <section className="mb-8">
-        <h1 className="text-3xl font-bold text-main mb-2">{camper.name}</h1>
-        <div className="flex gap-4 text-sm mb-4">
-          <span className="flex items-center gap-1">⭐ {camper.rating} ({camper.totalReviews} Reviews)</span>
-          <span>📍 {camper.location}</span>
-        </div>
-        <p className="text-3xl font-bold text-main">€{camper.price.toFixed(2)}</p>
-      </section>
+    <div className="container mx-auto py-10 px-4">
+      {/* ВЕРХНЯ СЕКЦІЯ: Галерея та Основна інформація */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-10">
+        {/* Лівий блок: Галерея */}
+        <section>
+          <CamperGallery images={camper.gallery} />
+        </section>
 
-      {/* Галерея зображень */}
-      <CamperGallery images={camper.gallery} />
-
-      <div className="flex gap-10 mt-12">
-        {/* Ліва колонка: Опис, Характеристики, Відгуки */}
-        <div className="flex-grow max-w-[600px]">
-          <p className="text-text leading-relaxed mb-10">{camper.description}</p>
-          
-          <div className="flex gap-10 border-b border-gray-light mb-10 text-xl font-bold">
-            <button className="pb-6 border-b-4 border-grey-green">Features</button>
-            <button className="pb-6 text-gray-400">Reviews</button>
-          </div>
-
-          <VehicleSpecs camper={camper} />
-          <ReviewsList reviews={camper.reviews} />
-        </div>
-
-        {/* Права колонка: Форма бронювання */}
-        <aside className="w-[450px]">
-          <BookingForm camperId={camper.id} />
-        </aside>
+        {/* Правий блок: Опис та Характеристики */}
+        <section className="flex flex-col gap-6">
+          <CamperMainInfo camper={camper} />
+          <VehicleDetails camper={camper} />
+        </section>
       </div>
-    </main>
+
+      {/* НИЖНЯ СЕКЦІЯ: Відгуки та Форма */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+        {/* Лівий блок: Відгуки */}
+        <section className="flex flex-col gap-8">
+          {isReviewsLoading ? (
+            <p>Loading reviews...</p>
+          ) : (
+            <ReviewsList reviews={reviews || []} />
+          )}
+        </section>
+
+        {/* Правий блок: Форма бронювання */}
+        <section className="sticky top-10">
+          <BookingForm camperId={camper.id} />
+        </section>
+      </div>
+    </div>
   );
 }

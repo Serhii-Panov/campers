@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { fetchCampers } from '@/services/api';
 import { Sidebar } from '@/components/Sidebar';
-import { Button } from '@/components/Button';
+import { CamperCard } from '@/components/CamperCard';
 import { CamperListItem } from '@/types/camper';
 
 export default function CatalogPage() {
@@ -18,8 +18,7 @@ export default function CatalogPage() {
     initialPageParam: 1,
   });
 
-  const handleSearch = (newFilters: any) => {
-    // Очищаємо порожні значення перед пошуком
+  const handleSearch = (newFilters: string | string[]) => {
     const cleanFilters = Object.fromEntries(
       Object.entries(newFilters).filter(([_, v]) => v !== '' && v !== null)
     );
@@ -32,45 +31,13 @@ export default function CatalogPage() {
 
       <section className="flex-grow">
         <div className="flex flex-col gap-8">
-          {data?.pages.map((group, i) => (
-            <React.Fragment key={i}>
-              {group.campers.map((camper: CamperListItem) => (
-                <div key={camper.id} className="p-6 border rounded-[20px] border-gray-light flex gap-6 bg-white">
-                  {/* Зображення */}
-                  <div className="w-[290px] h-[310px] shrink-0 rounded-[10px] overflow-hidden">
-                    <img src={camper.coverImage} alt={camper.name} className="w-full h-full object-cover" />
-                  </div>
-
-                  {/* Контент */}
-                  <div className="flex-grow flex flex-col">
-                    <div className="flex justify-between items-start mb-2">
-                      <h2 className="text-2xl font-bold text-main">{camper.name}</h2>
-                      <span className="text-2xl font-bold text-main">€{camper.price.toFixed(2)}</span>
-                    </div>
-                    
-                    {/* Рейтинг та Локація */}
-                    <div className="flex gap-4 mb-6 text-sm">
-                      <span>⭐ {camper.rating} ({camper.totalReviews} Reviews)</span>
-                      <span>📍 {camper.location}</span>
-                    </div>
-
-                    <p className="text-text mb-6 line-clamp-2">{camper.description}</p>
-
-                    {/* Посилання на деталі (нова вкладка за ТЗ) */}
-                    <div className="mt-auto">
-                      <a 
-                        href={`/catalog/${camper.id}`} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                      >
-                        <Button>Show more</Button>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </React.Fragment>
-          ))}
+         {data?.pages.map((page, pageIndex) => (
+    <React.Fragment key={pageIndex}>
+      {page.campers?.map((camper: CamperListItem) => (
+        <CamperCard key={camper.id} camper={camper} />
+      ))}
+    </React.Fragment>
+  ))}
         </div>
 
         {/* Кнопка Load More за ТЗ */}

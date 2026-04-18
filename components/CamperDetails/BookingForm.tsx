@@ -35,7 +35,6 @@ export const BookingForm = ({ camperId }: { camperId: string }) => {
       <form onSubmit={handleSubmit} className="space-y-4">
         <input name="name" type="text" placeholder="Name*" required className="w-full p-4 bg-inputs rounded-xl outline-none" />
         <input name="email" type="email" placeholder="Email*" required className="w-full p-4 bg-inputs rounded-xl outline-none" />
-        <textarea placeholder="Comment" rows={4} className="w-full p-4 bg-inputs rounded-xl outline-none resize-none" />
         <Button type="submit" className="w-full" disabled={mutation.isPending}>
           {mutation.isPending ? 'Sending...' : 'Send'}
         </Button>

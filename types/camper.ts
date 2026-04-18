@@ -19,6 +19,26 @@ export interface CamperListItem {
   totalReviews: number;
 }
 
+export interface DetailedCamper extends CamperListItem {
+ gallery: {
+    id: string;
+    camperId: string;
+    thumb: string;
+    original: string;
+    order: number;
+  }[];
+}
+
+
+export interface CamperReviews {
+  id: string;
+  camperId: string;
+  reviewer_name: string;
+  reviewer_rating: number;
+  comment: string;
+  created_at: string;
+}
+
 export interface CamperListResponse {
   page: number;
   perPage: number;
