@@ -13,8 +13,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Campers",
-  description: "Camp with comfort",
+  title: "Camper Rental",
+  description: "Find your perfect camper",
+  icons: {
+    icon: "/favicon.svg",
+  }
 };
 
 export default function RootLayout({

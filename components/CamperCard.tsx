@@ -79,7 +79,7 @@ export const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
 
 // Допоміжний компонент для бейджів
 const Badge = ({ text, icon }: { text: string; icon: IconName }) => (
-  <div className="px-[18px] py-3 bg-[#f2f4f7] rounded-full flex items-center gap-2 text-[#101828] font-medium capitalize text-sm">
+  <div className="px-[18px] py-3 bg-gray-light rounded-full flex items-center gap-2 text-[#101828] font-medium capitalize text-sm">
     <Icon name={icon} />
     <span>{text}</span>
   </div>

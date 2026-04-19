@@ -29,6 +29,12 @@ export interface DetailedCamper extends CamperListItem {
   }[];
 }
 
+export interface CamperFilters {
+  location?: string;
+  form?: string;
+  transmission?: string;
+  engine?: string;
+}
 
 export interface CamperReviews {
   id: string;

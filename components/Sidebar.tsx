@@ -3,10 +3,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchFilters } from '@/services/api';
 import { Button } from './Button';
-import { FiltersResponse } from '@/types/camper';
+import { FiltersResponse, CamperFilters } from '@/types/camper';
 import { Icon } from './Icon';
 
-export const Sidebar = ({ onSearch }: { onSearch: (filters: any) => void }) => {
+export const Sidebar = ({ onSearch }: { onSearch: (filters: CamperFilters) => void }) => {
   const { data: filterOptions, isLoading } = useQuery<FiltersResponse>({
     queryKey: ['filters'],
     queryFn: fetchFilters,
@@ -16,11 +16,11 @@ export const Sidebar = ({ onSearch }: { onSearch: (filters: any) => void }) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     
-    const filters = {
-      location: formData.get('location'),
-      form: formData.get('form'),
-      transmission: formData.get('transmission'),
-      engine: formData.get('engine'),
+    const filters: CamperFilters = {
+      location: formData.get('location')?.toString() || undefined,
+      form: formData.get('form')?.toString() || undefined,
+      transmission: formData.get('transmission')?.toString() || undefined,
+      engine: formData.get('engine')?.toString() || undefined,
     };
     
     onSearch(filters);
@@ -41,7 +41,7 @@ export const Sidebar = ({ onSearch }: { onSearch: (filters: any) => void }) => {
               placeholder="City, Country" 
               className="w-full bg-inputs p-4 pl-12 rounded-xl outline-none border border-transparent focus:border-grey-green transition-all"
             />
-            <Icon name="map" className="absolute left-4 top-1/2 -translate-y-1/2 " />
+            <Icon name="map" className="absolute left-4 top-1/2 -translate-y-1/2" />
           </div>
         </div>
 
@@ -104,7 +104,7 @@ export const Sidebar = ({ onSearch }: { onSearch: (filters: any) => void }) => {
             onClick={() => onSearch({})}
             className="w-full py-4 bg-white border border-gray-light rounded-full font-medium hover:border-grey-green transition-all justify-center flex items-center gap-2 text-main"
           >
-            <Icon size={11} name="cross" className="inline-block color-text-main" />
+            <Icon size={12} name="cross" className="relative -top-[0.5px]" />
             Clear filters
           </button>
         </div>
