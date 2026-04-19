@@ -32,6 +32,6 @@ export const fetchCamperReviews = async (camperId: string) => {
 };
 
 export const sendBooking = async (data: { name: string; email: string; camperId: string }) => {
-  const response = await api.post(`/${data.camperId}/booking`, data);
+  const response = await api.post(`/${data.camperId}/booking-requests`, data);
   return response.data;
 };

@@ -10,6 +10,8 @@ export const BookingForm = ({ camperId }: { camperId: string }) => {
     mutationFn: sendBooking,
     onSuccess: () => {
       toast.success("Successfully booked! We will contact you soon.");
+      const form = document.querySelector('form') as HTMLFormElement;
+      if (form) form.reset();
     },
     onError: () => {
       toast.error("Something went wrong. Please try again.");
