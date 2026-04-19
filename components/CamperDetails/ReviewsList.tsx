@@ -11,7 +11,8 @@ export const ReviewsList = ({ reviews }: Props) => {
   }
 
   return (
-    <div className="flex flex-col gap-11">
+    <div className="flex flex-col gap-6">
+      <h2 className="text-[24px] font-semibold">Reviews</h2>
       {reviews.map((review) => (
         <ReviewItem key={review.id} review={review} />
       ))}

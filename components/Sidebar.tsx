@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchFilters } from '@/services/api';
 import { Button } from './Button';
 import { FiltersResponse } from '@/types/camper';
+import { Icon } from './Icon';
 
 export const Sidebar = ({ onSearch }: { onSearch: (filters: any) => void }) => {
   const { data: filterOptions, isLoading } = useQuery<FiltersResponse>({
@@ -28,7 +29,7 @@ export const Sidebar = ({ onSearch }: { onSearch: (filters: any) => void }) => {
   if (isLoading) return <div className="w-[360px] animate-pulse bg-gray-50 h-screen" />;
 
   return (
-    <aside className="w-[360px] shrink-0">
+    <aside className="w-[360px] h-full shrink-0 bg-badges rounded-2xl p-8">
       <form onSubmit={handleSubmit}>
         {/* Location */}
         <div className="mb-8">
@@ -40,7 +41,7 @@ export const Sidebar = ({ onSearch }: { onSearch: (filters: any) => void }) => {
               placeholder="City, Country" 
               className="w-full bg-inputs p-4 pl-12 rounded-xl outline-none border border-transparent focus:border-grey-green transition-all"
             />
-            <span className="absolute left-4 top-1/2 -translate-y-1/2">📍</span>
+            <Icon name="map" className="absolute left-4 top-1/2 -translate-y-1/2 " />
           </div>
         </div>
 
@@ -101,8 +102,9 @@ export const Sidebar = ({ onSearch }: { onSearch: (filters: any) => void }) => {
           <button 
             type="reset" 
             onClick={() => onSearch({})}
-            className="w-full py-4 border border-gray-light rounded-full font-medium hover:border-grey-green transition-all"
+            className="w-full py-4 bg-white border border-gray-light rounded-full font-medium hover:border-grey-green transition-all justify-center flex items-center gap-2 text-main"
           >
+            <Icon size={11} name="cross" className="inline-block color-text-main" />
             Clear filters
           </button>
         </div>

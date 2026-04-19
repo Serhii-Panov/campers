@@ -41,21 +41,21 @@ export default function CamperDetailsPage() {
   return (
     <div className="container mx-auto py-10 px-4">
       {/* ВЕРХНЯ СЕКЦІЯ: Галерея та Основна інформація */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-10 h-full">
         {/* Лівий блок: Галерея */}
-        <section>
+        <section className="h-full">
           <CamperGallery images={camper.gallery} />
         </section>
 
         {/* Правий блок: Опис та Характеристики */}
-        <section className="flex flex-col gap-6">
+        <section className="flex flex-col  gap-6">
           <CamperMainInfo camper={camper} />
           <VehicleDetails camper={camper} />
         </section>
       </div>
 
       {/* НИЖНЯ СЕКЦІЯ: Відгуки та Форма */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-end">
         {/* Лівий блок: Відгуки */}
         <section className="flex flex-col gap-8">
           {isReviewsLoading ? (
