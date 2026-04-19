@@ -5,10 +5,10 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { fetchCampers } from '@/services/api';
 import { Sidebar } from '@/components/Sidebar';
 import { CamperCard } from '@/components/CamperCard';
-import { CamperListItem } from '@/types/camper';
+import { CamperListItem, CamperFilters } from '@/types/camper';
 
 export default function CatalogPage() {
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState<CamperFilters>({});
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ['campers', filters], // ВАЖЛИВО: запит перезапуститься при зміні фільтрів
@@ -18,7 +18,7 @@ export default function CatalogPage() {
     initialPageParam: 1,
   });
 
-  const handleSearch = (newFilters: string | string[]) => {
+  const handleSearch = (newFilters: CamperFilters) => {
     const cleanFilters = Object.fromEntries(
       Object.entries(newFilters).filter(([_, v]) => v !== '' && v !== null)
     );
@@ -29,7 +29,7 @@ export default function CatalogPage() {
     <main className="container mx-auto px-16 py-10 flex gap-16">
       <Sidebar onSearch={handleSearch} />
 
-      <section className="flex-grow">
+      <section className="grow">
         <div className="flex flex-col gap-8">
          {data?.pages.map((page, pageIndex) => (
     <React.Fragment key={pageIndex}>
