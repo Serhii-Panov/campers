@@ -45,19 +45,19 @@ export const Sidebar = ({ onSearch }: { onSearch: (filters: CamperFilters) => vo
           </div>
         </div>
 
-        <h3 className="text-text font-medium mb-8">Filters</h3>
+        <h3 className="text-main text-xl font-semibold mb-6">Filters</h3>
 
         {/* Секція: Тип кузова (Radio) */}
         <div className="mb-8">
-          <p className="text-xl font-bold mb-6 pb-6 border-b border-gray-light text-main">Vehicle type</p>
-          <div className="space-y-4">
+          <p className="text-base text-gray font-normal mb-2">Camper form</p>
+          <div className="space-y-4 text-main text-base font-normal">
             {filterOptions?.forms.map((form) => (
               <label key={form} className="flex items-center gap-3 cursor-pointer group">
                 <input type="radio" name="form" value={form} className="hidden peer" />
                 <div className="w-5 h-5 border-2 border-gray-light rounded-full flex items-center justify-center peer-checked:border-grey-green transition-all">
                   <div className="w-2.5 h-2.5 bg-grey-green rounded-full opacity-0 peer-checked:opacity-100 transition-all"></div>
                 </div>
-                <span className="text-text font-medium capitalize group-hover:text-main">
+                <span className="text-main font-normal capitalize">
                   {form.replace('_', ' ')}
                 </span>
               </label>
@@ -65,25 +65,9 @@ export const Sidebar = ({ onSearch }: { onSearch: (filters: CamperFilters) => vo
           </div>
         </div>
 
-        {/* Секція: Трансмісія (Radio) */}
-        <div className="mb-8">
-          <p className="text-xl font-bold mb-6 pb-6 border-b border-gray-light text-main">Transmission</p>
-          <div className="space-y-4">
-            {filterOptions?.transmissions.map((t) => (
-              <label key={t} className="flex items-center gap-3 cursor-pointer group">
-                <input type="radio" name="transmission" value={t} className="hidden peer" />
-                <div className="w-5 h-5 border-2 border-gray-light rounded-full flex items-center justify-center peer-checked:border-grey-green transition-all">
-                  <div className="w-2.5 h-2.5 bg-grey-green rounded-full opacity-0 peer-checked:opacity-100 transition-all"></div>
-                </div>
-                <span className="text-text font-medium capitalize group-hover:text-main">{t}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-
         {/* Секція: Двигун (Radio) */}
         <div className="mb-10">
-          <p className="text-xl font-bold mb-6 pb-6 border-b border-gray-light text-main">Engine</p>
+          <p className="text-base text-gray font-normal mb-2">Engine</p>
           <div className="space-y-4">
             {filterOptions?.engines.map((e) => (
               <label key={e} className="flex items-center gap-3 cursor-pointer group">
@@ -91,7 +75,23 @@ export const Sidebar = ({ onSearch }: { onSearch: (filters: CamperFilters) => vo
                 <div className="w-5 h-5 border-2 border-gray-light rounded-full flex items-center justify-center peer-checked:border-grey-green transition-all">
                   <div className="w-2.5 h-2.5 bg-grey-green rounded-full opacity-0 peer-checked:opacity-100 transition-all"></div>
                 </div>
-                <span className="text-text font-medium capitalize group-hover:text-main">{e}</span>
+                <span className="text-main font-normal capitalize">{e}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* Секція: Трансмісія (Radio) */}
+        <div className="mb-8">
+          <p className="text-base text-gray font-normal mb-2">Transmission</p>
+          <div className="space-y-4">
+            {filterOptions?.transmissions.map((t) => (
+              <label key={t} className="flex items-center gap-3 cursor-pointer group">
+                <input type="radio" name="transmission" value={t} className="hidden peer" />
+                <div className="w-5 h-5 border-2 border-gray-light rounded-full flex items-center justify-center peer-checked:border-grey-green transition-all">
+                  <div className="w-2.5 h-2.5 bg-grey-green rounded-full opacity-0 peer-checked:opacity-100 transition-all"></div>
+                </div>
+                <span className="text-main font-normal capitalize">{t}</span>
               </label>
             ))}
           </div>
