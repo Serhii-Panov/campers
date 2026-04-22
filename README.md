@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚐 Camper Rental Service
 
-## Getting Started
+A modern web platform for renting campervans, designed to help travelers find their perfect home on wheels. Users can explore a diverse catalog, filter by technical specifications, read community reviews, and book their trips instantly.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Links
+- **Live Demo:** [https://campers-theta.vercel.app/]
+- **Repository:** https://github.com/Serhii-Panov/campers
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📖 About the Project
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This is a full-featured frontend application built as part of a high-performance rental service. The primary goal was to create a seamless, user-centric interface with a focus on performance, strict typing, and Pixel Perfect design implementation.
 
-## Learn More
+### Key Features:
+- **Dynamic Catalog:** A fast-loading list of campers with "Load More" functionality.
+- **Smart Filtering:** Search by location and technical attributes (vehicle type, transmission, engine type).
+- **Detailed Camper Pages:** Comprehensive specifications, high-quality image galleries, and a dedicated reviews tab.
+- **Booking System:** An interactive booking form with instant UI feedback (success/error toasts) and automatic form reset.
+- **Star Rating System:** A custom-built SVG-based visualization for user ratings.
+---
+## 🛠 Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework:** Next.js 15 (App Router)
+- **Language:** TypeScript (Strict Mode) — 100% type safety with zero `any` usage.
+- **Data Fetching:** TanStack Query v5 (React Query) — for efficient server-state management and caching.
+- **Styling:** Tailwind CSS — utility-first CSS for a responsive and scalable UI.
+- **Icons:** SVG Sprites — optimized icon delivery to minimize HTTP requests and layout shifts.
+- **Notifications:** React Hot Toast — for sleek, non-intrusive user feedback.
+---
+## 🏗 Architecture
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The project follows a clean, modular architecture to ensure maintainability:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `/app/` — Routing logic and page components (App Router).
+- `/components/` — A mix of atomic UI-kit elements (Buttons, Icons) and complex business logic components (Sidebar, BookingForm).
+- `/services/` — An abstraction layer for API interactions (Axios/Fetch).
+- `/types/` — Centralized TypeScript definitions for all project entities.
+- `public/` — Static assets, including the optimized SVG sprite and custom favicon.
+---
+## 💡 Technical Highlights
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Pixel Perfect UI:** Rigorous attention to detail—ensuring icons, spacing, and form elements align perfectly with the original design specs.
+2. **Icon Optimization:** Leveraging SVG `<symbol>` and sprites allows icons to load instantly without the typical "flicker" of external assets.
+3. **Robust Form Handling:** Utilizing `FormData` and `useMutation` provides a reliable way to handle submissions while managing loading and success states.
+4. **Enhanced UX:** Integrated "sticky" sidebar elements and skeleton loaders to keep the interface feeling fast and responsive.
