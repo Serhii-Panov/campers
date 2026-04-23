@@ -30,15 +30,17 @@ export default function CatalogPage() {
       <Sidebar onSearch={handleSearch} />
 
       <section className="grow">
-        <div className="flex flex-col gap-8">
+        <ul className="flex flex-col gap-8">
          {data?.pages.map((page, pageIndex) => (
     <React.Fragment key={pageIndex}>
       {page.campers?.map((camper: CamperListItem) => (
-        <CamperCard key={camper.id} camper={camper} />
+        <li key={camper.id}>
+          <CamperCard camper={camper} /> 
+        </li>
       ))}
     </React.Fragment>
   ))}
-        </div>
+        </ul>
 
         {/* Кнопка Load More за ТЗ */}
         {hasNextPage && (
